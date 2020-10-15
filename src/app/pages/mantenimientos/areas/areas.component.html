@@ -1,0 +1,37 @@
+<div class="col-12">
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title"> Áreas registrados en la aplicación </h4>
+          <div style="text-align: right;">
+            <button class="btn btn-info" routerLink="/dashboard/area/nuevo">Nueva Área <i class="fa fa-plus-circle"></i> </button>
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Nombre</th>
+                          <th>Descripción</th>
+                          <th class="text-nowrap">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let usuario of areas">
+                          <td>{{ usuario.nombre_area }} </td>
+                          <td> {{ usuario.descripcion }} </td>
+                          <td> <a style="margin-right: 4px;"
+                            [routerLink]="['/dashboard/area', usuario.areaid]"
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-edit"></i> </a>
+                               <a
+                               (click)="eliminarUsuario(usuario)"
+                               class="btn btn-danger">
+                               <i style="color: white;" class="fa fa-trash"></i> </a>
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+.verde {
+  background-color:#06d79c;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: 400;
+  border-radius: 4px;
+  font-size: 75%;
+}
+.azul {
+  background-color:#398bf7;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: 400;
+  border-radius: 4px;
+  font-size: 75%;
+}

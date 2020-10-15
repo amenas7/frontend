@@ -1,0 +1,173 @@
+<div class="row">
+
+  <div class="col-lg-12">
+    <form [formGroup]="usuarioForm" (submit)="guardarUsuario()">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> Datos personales </h4>
+        <div style="display: flex;">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="p_documento"> Nº Documento </label>
+                <div class="input-group">
+                    <input type="text" maxlength="8" autocomplete="off" formControlName="dni" class="form-control" id="p_documento" placeholder="Ingrese DNI">
+                    <div class="input-group-addon"><i class="fa fa fa-vcard-o"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="p_nombres"> Nombres </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" id="p_nombres" placeholder="" formControlName="nombres">
+                    <div class="input-group-addon"><i class="fa fa fa-user-o"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="p_sede"> Sede institucional </label>
+                <select
+                  formControlName="sede"
+                  class="form-control custom-select"
+                  style="border: 1px solid #242A33; font-weight : bold">
+                      <option value=""> Seleccione una sede </option>
+                      <option *ngFor="let sede of sedes"
+                      [value]="sede.IDsede" >
+                        {{ sede.nombre }}
+                      </option>
+              </select>
+              </div>
+            </div>
+        </div>
+        <div style="display: flex;">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="p_paterno"> Apellido Paterno </label>
+              <div class="input-group">
+                  <input type="email" class="form-control" autocomplete="off" id="p_paterno" placeholder="" formControlName="apaterno">
+                  <div class="input-group-addon"><i class="fa fa fa-user-o"></i></div>
+              </div>
+          </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="p_materno"> Apellido Materno </label>
+              <div class="input-group">
+                  <input type="text" class="form-control" autocomplete="off" id="p_materno" placeholder="" formControlName="amaterno">
+                  <div class="input-group-addon"><i class="fa fa fa-user-o"></i></div>
+              </div>
+          </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="p_correo"> Correo electrónico </label>
+              <div class="input-group">
+                  <input type="text" class="form-control" autocomplete="off" id="p_correo" placeholder="" formControlName="correo">
+                  <div class="input-group-addon"><i class="fa fa fa-envelope-open"></i></div>
+              </div>
+          </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> Datos de acceso </h4>
+        <div style="display: flex;">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="p_usuario"> Usuario </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" id="p_usuario" placeholder="" formControlName="usuario">
+                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="p_password"> Contraseña </label>
+                <div class="input-group">
+                    <input type="text" class="form-control" autocomplete="off" id="p_password" placeholder="" formControlName="password">
+                    <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div style="display: flex;">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label> Área </label>
+              <select
+                  formControlName="area"
+                  class="form-control custom-select"
+                  style="border: 1px solid #242A33; font-weight : bold">
+                      <option value=""> Seleccione un área </option>
+                      <option *ngFor="let area of areas"
+                      [value]="area.areaid" >
+                        {{ area.nombre_area }}
+                      </option>
+              </select>
+          </div>
+
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-group">
+              <label> Rol </label>
+              <select
+                  formControlName="role"
+                  class="form-control custom-select"
+                  style="border: 1px solid #242A33; font-weight : bold">
+                      <option value=""> Seleccione un rol </option>
+                      <option *ngFor="let rol of roles"
+                      [value]="rol.IDrol" >
+                        {{ rol.descripcion }}
+                      </option>
+              </select>
+          </div>
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+
+    <div class="form-group row m-b-0">
+      <div class="col-md-8" style="text-align: center;">
+        <button (click)="Regresar()" type="button"
+        class="btn btn-warning"><i class="fa fa-rotate-left"></i> Regresar </button>
+
+      </div>
+      <div class="col-md-4 pull-right">
+        <button
+          [disabled]="usuarioForm.invalid"
+          type="submit" class="btn btn-info waves-effect waves-light"> REGISTRAR
+          </button>
+      </div>
+  </div>
+</form>
+  </div>
+  <!-- <div class="col-lg-4">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title"> Accesos según rol </h4>
+
+        <div style="display: flex;">
+          <div class="col-md-6">
+
+          </div>
+          <div class="col-md-6">
+          </div>
+      </div>
+
+      </div>
+    </div>
+  </div> -->
+
+</div>

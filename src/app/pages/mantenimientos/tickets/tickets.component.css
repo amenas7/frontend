@@ -1,0 +1,29 @@
+.rojo {
+  background-color:#ef5350;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.naranja {
+  background-color:#ffb22b;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.amarillo {
+  background-color:#FFE01B;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}

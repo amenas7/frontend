@@ -1,0 +1,55 @@
+<div class="col-12">
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title"> Incidencias registrados en la aplicación </h4>
+          <div style="text-align: right;">
+            <!-- <button class="btn btn-info" routerLink="/dashboard/incidencia/nuevo">Nueva Incidencia
+              <i class="fa fa-plus-circle"></i> </button> -->
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Fecha registrada</th>
+                          <th>Serie</th>
+                          <th>Estado</th>
+                          <th>Usuario completo</th>
+                          <th>Área</th>
+                          <th>Tipo de incidencia</th>
+                          <th>Prioridad</th>
+                          <th class="text-nowrap">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let ticket of tickets">
+                          <td>{{ ticket.fecha_reg }} </td>
+                          <td>{{ ticket.serie }} </td>
+                          <td> <span class="label label-info"> {{ ticket.estado }} </span> </td>
+                          <td> {{ ticket.usuario_completo }} </td>
+                          <td> {{ ticket.nombre_area }} </td>
+                          <td> {{ ticket.nombre_tipo_inci }} </td>
+                          <!-- <td> <span class="label label-info"> {{ ticket.nombre_prioridad }} </span> </td> -->
+                          <td>
+                            <span
+                            [ngClass]="{ 'rojo' : ticket.IDprioridad == '1', 'naranja' : ticket.IDprioridad == '2',
+                            'amarillo' : ticket.IDprioridad == '3' }">
+                            {{ ticket.nombre_prioridad }} </span>
+                          </td>
+                          <td>
+                            <!-- <a style="margin-right: 4px;"
+                            [routerLink]="['/dashboard/ticket', inci.incidenciaid]"
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-folder-open-o"></i> </a>
+                               <a
+                               (click)="eliminarInci(inci)"
+                               class="btn btn-danger">
+                               <i style="color: white;" class="fa fa-trash"></i> </a> -->
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+<div class="col-12">
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title"> Incidencias registrados en la aplicación </h4>
+          <div style="text-align: right;">
+            <button class="btn btn-info" routerLink="/dashboard/incidencia/nuevo">Nueva Incidencia <i class="fa fa-plus-circle"></i> </button>
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Fecha registrada</th>
+                          <th>Usuario completo</th>
+                          <th>Área</th>
+                          <th>Tipo de incidencia</th>
+                          <th>Estado</th>
+                          <th class="text-nowrap">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let inci of incidencias">
+                          <td>{{ inci.fecha_reg }} </td>
+                          <td> {{ inci.usuario_completo }} </td>
+                          <td> {{ inci.nombre_area }} </td>
+                          <td> {{ inci.nombre_tipo_inci }} </td>
+                          <!-- <td> <span class="label label-info"> {{ inci.estado }} </span> </td> -->
+                          <td>
+                          <span
+                          [ngClass]="{ 'verde' : inci.estado == '1', 'azul' : inci.estado == '2' }">
+                          {{ inci.estado_nombre }} </span>
+                          </td>
+
+
+                          <td> <a *ngIf="inci.estado =='1'" style="margin-right: 4px;"
+                            [routerLink]="['/dashboard/ticket', inci.incidenciaid]"
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-folder-open-o"></i> </a>
+                               <a
+                               (click)="eliminarInci(inci)"
+                               class="btn btn-danger">
+                               <i style="color: white;" class="fa fa-trash"></i> </a>
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

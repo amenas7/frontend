@@ -1,0 +1,43 @@
+<div class="col-12">
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title"> Usuarios registrados en la aplicación </h4>
+          <div style="text-align: right;">
+            <button class="btn btn-info" routerLink="/dashboard/usuarios/nuevo">Nuevo Usuario <i class="fa fa-plus-circle"></i> </button>
+          </div>
+
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>DNI</th>
+                          <th>Nombre completo</th>
+                          <th>Usuario</th>
+                          <th>Área</th>
+                          <th>Rol</th>
+                          <th class="text-nowrap">Acciones</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let usuario of usuarios">
+                          <td>{{ usuario.numdoc }} </td>
+                          <td><a> {{ usuario.nombre_total }} </a></td>
+                          <td>{{ usuario.usuario }} </td>
+                          <td> {{ usuario.nombre_area }} </td>
+                          <td> <span class="label label-info"> {{ usuario.nombre_rol }} </span> </td>
+                          <td> <a style="margin-right: 4px;"
+                            [routerLink]="['/dashboard/usuario', usuario.uid]"
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-edit"></i> </a>
+                               <a
+                               (click)="eliminarUsuario(usuario)"
+                               class="btn btn-danger">
+                               <i style="color: white;" class="fa fa-trash"></i> </a>
+                          </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
