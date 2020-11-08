@@ -22,6 +22,8 @@ import { TicketsComponent } from './mantenimientos/tickets/tickets.component';
 import { TiposinciComponent } from './mantenimientos/tiposinci/tiposinci.component';
 import { IncidenciaNuevoComponent } from './mantenimientos/incidencias/incidencia-nuevo/incidencia-nuevo.component';
 import { TicketNuevoComponent } from './mantenimientos/tickets/ticket-nuevo/ticket-nuevo.component';
+import { TicketDetalleComponent } from './mantenimientos/tickets/ticket-detalle/ticket-detalle.component';
+import { IndicadorUnoComponent } from './mantenimientos/indicador-uno/indicador-uno.component';
 
 
 const routes: Routes = [
@@ -68,6 +70,16 @@ const routes: Routes = [
             // tickets
             { path: 'tickets', component: TicketsComponent, data: { titulo: 'Tickets' }},
             { path: 'ticket/:id', component: TicketNuevoComponent, data: { titulo: 'Nuevo Ticket' }},
+            //{ path: 'ticket/nuevo', component: TicketNuevoComponent, data: { titulo: 'Nuevo Ticket' }},
+
+            // ticket detalle
+            //{ path: 'tickets', component: TicketsComponent, data: { titulo: 'Tickets' }},
+            { path: 'ticketd/:id', component: TicketDetalleComponent, data: { titulo: 'Detalle de Ticket' }},
+            //{ path: 'ticket/nuevo', component: TicketNuevoComponent, data: { titulo: 'Nuevo Ticket' }},
+
+            // primer indicador
+            { path: 'indicador1', component: IndicadorUnoComponent, data: { titulo: 'Primer indicador' }},
+            //{ path: 'ticket/:id', component: TicketNuevoComponent, data: { titulo: 'Nuevo Ticket' }},
             //{ path: 'ticket/nuevo', component: TicketNuevoComponent, data: { titulo: 'Nuevo Ticket' }},
 
 

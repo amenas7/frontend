@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AreaService } from '../../../services/area.service';
 import { Area } from '../../../models/area.model';
 import Swal from 'sweetalert2';
+import { WebsocketService } from '../../../services/websocket.service';
+
 
 @Component({
   selector: 'app-areas',
@@ -12,11 +14,18 @@ export class AreasComponent implements OnInit {
 
   public areas: Area[] = [];
   public areasTemp: Area[] = [];
+  p: number = 1;
 
-  constructor( private areaService: AreaService ) { }
+  filtrarNombre: any = '';
+
+  filterNombre: string = '';
+
+  constructor( private areaService: AreaService,
+    public wsServicve: WebsocketService ) { }
 
   ngOnInit(): void {
     this.cargarAreas();
+    this.escucharSocket();
 
   }
 
@@ -26,6 +35,14 @@ export class AreasComponent implements OnInit {
         this.areas = areas;
         //console.log(areas);
     })
+  }
+
+  escucharSocket(){
+    this.wsServicve.listen('cambio-area')
+    .subscribe( (data: any) =>{
+      //console.log('socket', data);
+      this.areas = data;
+    });
   }
 
   eliminarUsuario( area: Area ) {

@@ -12,6 +12,7 @@ export class UsuariosComponent implements OnInit {
 
   public usuarios: Usuario[] = [];
   public usuariosTemp: Usuario[] = [];
+  p: number = 1;
 
   constructor( private usuarioService: UsuarioService ) { }
 

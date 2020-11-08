@@ -1,0 +1,43 @@
+:host{
+  display: block;
+}
+
+.asignada {
+  background-color:#FEF953;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.en_proceso {
+  background-color:#398bf7;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.finalizada {
+  background-color:#06d79c;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.resuelta {
+  background-color:#FFA23B;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}

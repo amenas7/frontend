@@ -3,6 +3,7 @@ import { TiposinciService } from '../../../services/tiposinci.service';
 import { Tipoinci } from '../../../models/tipoinci';
 import Swal from 'sweetalert2';
 
+
 @Component({
   selector: 'app-tiposinci',
   templateUrl: './tiposinci.component.html',
@@ -18,6 +19,8 @@ export class TiposinciComponent implements OnInit {
     this.cargarTipos();
 
   }
+
+
 
   cargarTipos() {
     this.tiposService.cargarTipos()

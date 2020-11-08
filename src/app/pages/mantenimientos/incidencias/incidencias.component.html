@@ -1,50 +1,87 @@
-<div class="col-12">
-  <div class="card">
-      <div class="card-body">
-          <h4 class="card-title"> Incidencias registrados en la aplicación </h4>
-          <div style="text-align: right;">
-            <button class="btn btn-info" routerLink="/dashboard/incidencia/nuevo">Nueva Incidencia <i class="fa fa-plus-circle"></i> </button>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card" >
+        <div class="card-header" style="background-color: #3C8DBC;">
+          <h4 class="text-white"> <i class="fa fa-search"></i> Buscar por...</h4>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                  <label class="control-label" style="font-weight: bold;"> Nombre de usuario </label>
+                  <input style="border: 1px solid #222;font-weight: bold;" class="form-control"
+                  type="text" name="filterNombre" [(ngModel)]="filterNombre"
+                  placeholder="Buscar por nombre" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label class="control-label" style="font-weight: bold;">Tipo de Incidencia</label>
+                  <select style="border: 1px solid #222;font-weight: bold;" [(ngModel)]="filterTipoInci" class="form-control custom-select" tabindex="1">
+                    <option value="">--Seleccione un tipo--</option>
+                    <option *ngFor="let tipo of tipoinci" value={{tipo.nombre}} >{{tipo.nombre}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4 m-t-20" style="text-align: center;">
+                <button class="btn btn-info" routerLink="/dashboard/incidencia/nuevo">Nueva Incidencia
+                  <i class="fa fa-plus-circle"></i> </button>
+              </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-          <div class="table-responsive">
-              <table class="table">
-                  <thead>
-                      <tr>
-                          <th>Fecha registrada</th>
-                          <th>Usuario completo</th>
-                          <th>Área</th>
-                          <th>Tipo de incidencia</th>
-                          <th>Estado</th>
-                          <th class="text-nowrap">Acciones</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr *ngFor="let inci of incidencias">
-                          <td>{{ inci.fecha_reg }} </td>
-                          <td> {{ inci.usuario_completo }} </td>
-                          <td> {{ inci.nombre_area }} </td>
-                          <td> {{ inci.nombre_tipo_inci }} </td>
-                          <!-- <td> <span class="label label-info"> {{ inci.estado }} </span> </td> -->
-                          <td>
-                          <span
-                          [ngClass]="{ 'verde' : inci.estado == '1', 'azul' : inci.estado == '2' }">
-                          {{ inci.estado_nombre }} </span>
-                          </td>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+              <h4 class="card-title"> Incidencias registrados en la aplicación </h4>
+              <div class="table-responsive">
+                  <table class="table table-bordered table-hover">
+                      <thead>
+                          <tr>
+                              <th style="font-weight: bold;">Fecha registrada</th>
+                              <th style="font-weight: bold;">Usuario completo</th>
+                              <th style="font-weight: bold;">Área</th>
+                              <th style="font-weight: bold;">Tipo de incidencia</th>
+                              <th style="font-weight: bold;">Estado</th>
+                              <th style="font-weight: bold;">Acciones</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr *ngFor="let inci of incidencias | paginate: { itemsPerPage: 10, currentPage: p } | filterSearch: {nombre_tipo_inci: filterTipoInci} | filterSearch: {usuario_completo: filterNombre}">
+
+                              <td>{{ inci.fecha_reg | date:'yyyy-MM-dd  HH:mm aa' }} </td>
+                              <td> {{ inci.usuario_completo }} </td>
+                              <td> {{ inci.nombre_area }} </td>
+                              <td> {{ inci.nombre_tipo_inci }} </td>
+                              <!-- <td> <span class="label label-info"> {{ inci.estado }} </span> </td> -->
+                              <td>
+                              <span
+                              [ngClass]="{ 'verde' : inci.estado == '1', 'azul' : inci.estado == '2' }">
+                              {{ inci.estado_nombre }} </span>
+                              </td>
 
 
-                          <td> <a *ngIf="inci.estado =='1'" style="margin-right: 4px;"
-                            [routerLink]="['/dashboard/ticket', inci.incidenciaid]"
-                            class="btn btn-primary"> <i style="color: white;" class="fa fa-folder-open-o"></i> </a>
-                               <a
-                               (click)="eliminarInci(inci)"
-                               class="btn btn-danger">
-                               <i style="color: white;" class="fa fa-trash"></i> </a>
-                          </td>
-                      </tr>
+                              <td> <a *ngIf=" inci.estado =='1' && role_usuario_storage == 'ADMINISTRADOR' "  style="margin-right: 4px;"
+                                [routerLink]="['/dashboard/ticket', inci.incidenciaid]"
+                                class="btn btn-primary"> <i style="color: white;" class="fa fa-folder-open-o"></i> </a>
+                                   <a *ngIf=" role_usuario_storage == 'ADMINISTRADOR' "
+                                   (click)="eliminarInci(inci)"
+                                   class="btn btn-danger">
+                                   <i style="color: white;" class="fa fa-trash"></i> </a>
+                              </td>
+                          </tr>
 
-                  </tbody>
-              </table>
+                      </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+              </div>
           </div>
       </div>
+    </div>
   </div>
-</div>
+

@@ -1,27 +1,40 @@
 <div class="col-12">
+
+  <button class="btn btn-info" routerLink="/dashboard/area/nuevo">Nueva Área
+    <i class="fa fa-plus-circle"></i> </button>
+
   <div class="card">
       <div class="card-body">
           <h4 class="card-title"> Áreas registrados en la aplicación </h4>
-          <div style="text-align: right;">
-            <button class="btn btn-info" routerLink="/dashboard/area/nuevo">Nueva Área <i class="fa fa-plus-circle"></i> </button>
+          <div class="col-md-4" style="display: flex;">
+
+          </div>
+          <div class="col-md-4" style="display: flex;">
+              <div class="form-group">
+                <input style="border: 1px solid #222;font-weight: bold;" class="form-control"
+                type="text" name="filterNombre" [(ngModel)]="filterNombre"
+                 placeholder="Buscar por nombre" autocomplete="off">
+              </div>
           </div>
 
           <div class="table-responsive">
-              <table class="table">
+              <table class="table table-bordered table-hover">
                   <thead>
-                      <tr>
-                          <th>Nombre</th>
-                          <th>Descripción</th>
-                          <th class="text-nowrap">Acciones</th>
+                      <tr >
+                          <th style="font-weight: bold;">Nombre</th>
+                          <th style="font-weight: bold;">Descripción</th>
+                          <th style="font-weight: bold;">Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let usuario of areas">
+                    <tr *ngFor="let usuario of areas | paginate: { itemsPerPage: 10, currentPage: p } | filterSearch: {nombre_area: filterNombre} ">
+                    <!-- <tr *ngFor="let usuario of areas | paginate: { itemsPerPage: 10, currentPage: p } | filtrartabla: filtrarNombre"> -->
+                      <!-- <tr *ngFor="let usuario of areas | filtrartabla: filtrarNombre | paginate: { itemsPerPage: 10, currentPage: p }"> -->
                           <td>{{ usuario.nombre_area }} </td>
                           <td> {{ usuario.descripcion }} </td>
                           <td> <a style="margin-right: 4px;"
                             [routerLink]="['/dashboard/area', usuario.areaid]"
-                            class="btn btn-primary"> <i style="color: white;" class="fa fa-edit"></i> </a>
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-pencil"></i> </a>
                                <a
                                (click)="eliminarUsuario(usuario)"
                                class="btn btn-danger">
@@ -31,6 +44,7 @@
 
                   </tbody>
               </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
       </div>
   </div>

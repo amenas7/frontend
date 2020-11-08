@@ -3,30 +3,32 @@ import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../environments/environment';
 
-import { tap, map, catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { tap, map, catchError, filter, pluck, mergeAll } from 'rxjs/operators';
+import { from, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { Incidencia } from '../models/incidencia.model';
 
 import { CargarTiposInci } from '../interfaces/cargas-incidencias.interfaces';
+
+import { CargarIncidencia } from '../interfaces/cargar-incidencias.interfaces';
 const base_url = environment.base_url;
 
 @Injectable({
   providedIn: 'root'
 })
 export class IncidenciasService {
-  public incidencia: Incidencia;
+  public incidencias: Incidencia;
 
   constructor( private http: HttpClient,
-    private router: Router ) { }
+    private router: Router ) {  }
 
     get token(): string {
       return localStorage.getItem('token') || '';
     }
 
     get uid():string {
-      return this.incidencia.incidenciaid || '';
+      return this.incidencias.incidenciaid || '';
     }
 
     get headers() {
@@ -37,9 +39,26 @@ export class IncidenciasService {
       }
     }
 
-    cargarIncidencias( ) {
+    cargarIncidencias() {
+      const uid: any  = localStorage.getItem('uid');
+      const u_role: any  = localStorage.getItem('role');
       const url = `${ base_url }/incidencias`;
       return this.http.get<CargarTiposInci>( url, this.headers );
+    }
+
+    cargarIncidencias_fijo() {
+      const uid: any  = localStorage.getItem('uid');
+
+      const url = `${ base_url }/incidencias`;
+
+      return this.http.get<CargarIncidencia>( url, this.headers )
+        .pipe(
+          //pluck( 'incidencias' ),
+          map( data => from( data.incidencias ) ),
+          mergeAll(),
+          filter( x => x.IDusuario == uid )
+
+        );
     }
 
     eliminarIncidencia( inci: Incidencia ) {

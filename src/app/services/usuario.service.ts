@@ -22,6 +22,67 @@ const base_url = environment.base_url;
 export class UsuarioService {
   public usuario: Usuario;
 
+  menu: any[] = [];
+  menu2: any[] = [];
+
+  ifMenu(rol: string){
+    if(rol === 'ADMINISTRADOR'){
+     this.menu = [
+         {
+           titulo: 'Principal',
+           icono: 'mdi mdi-gauge',
+           submenu: [
+            { titulo: 'Configuración', url: 'account-settings' },
+            { titulo: 'Usuarios', url: 'usuarios'},
+            { titulo: 'Áreas', url: 'areas'},
+            { titulo: 'Tipos Inci', url: 'tipos_inci'},
+            { titulo: 'Incidencias', url: 'incidencias'},
+            { titulo: 'Tickets', url: 'tickets'},
+            { titulo: 'Indicadores1', url: 'indicador1'},
+            { titulo: 'Indicadores2', url: 'indicador2'}
+           ]
+         }
+       ];
+        //console.log(this.menu);
+
+       return this.menu;
+      }
+
+      else if( rol === 'ESP - I NIVEL' || rol === 'ESP - II NIVEL' ){
+       this.menu = [
+         {
+           titulo: 'Principal',
+           icono: 'mdi mdi-gauge',
+           submenu: [
+            //{ titulo: 'Configuración', url: 'account-settings' },
+            //{ titulo: 'Incidencias', url: 'incidencias'},
+            { titulo: 'Tickets', url: 'tickets'},
+           ]
+         }
+       ];
+         //console.log(this.menu);
+
+       return this.menu;
+        }
+
+      else if( rol === 'USUARIO' ){
+        this.menu = [
+          {
+            titulo: 'Principal',
+            icono: 'mdi mdi-gauge',
+            submenu: [
+              //{ titulo: 'Configuración', url: 'account-settings' },
+              { titulo: 'Reg Incidencia', url: 'incidencia/nuevo'},
+              { titulo: 'Tickets', url: 'tickets'},
+            ]
+          }
+        ];
+          //console.log(this.menu);
+
+        return this.menu;
+          }
+   }
+
   constructor( private http: HttpClient,
                private router: Router ) { }
 
@@ -29,6 +90,8 @@ export class UsuarioService {
       localStorage.removeItem('token');
       localStorage.removeItem('uid');
       localStorage.removeItem('nombrecompleto');
+      localStorage.removeItem('usuario_perma');
+      localStorage.removeItem('role');
       this.router.navigateByUrl('/login');
   }
 
@@ -135,6 +198,8 @@ export class UsuarioService {
             localStorage.setItem('token', resp.token);
             localStorage.setItem('uid', resp.id);
             localStorage.setItem('nombrecompleto', resp.nombre_completo);
+            localStorage.setItem('role', resp.role);
+            localStorage.setItem('usuario_perma', resp.usuario.usuario);
           })
         );
   }

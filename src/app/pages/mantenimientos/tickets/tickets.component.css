@@ -1,5 +1,25 @@
-.rojo {
-  background-color:#ef5350;
+.pendiente {
+  background-color:#EF5350;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.asignada {
+  background-color:#FEF953;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.en_proceso {
+  background-color:#398bf7;
   padding: 3px 10px;
   line-height: 13px;
   color: #ffffff;
@@ -8,8 +28,8 @@
   font-size: 75%;
 }
 
-.naranja {
-  background-color:#ffb22b;
+.finalizada {
+  background-color:#06d79c;
   padding: 3px 10px;
   line-height: 13px;
   color: #ffffff;
@@ -18,11 +38,41 @@
   font-size: 75%;
 }
 
-.amarillo {
-  background-color:#FFE01B;
+.resuelta {
+  background-color:#FFA23B;
   padding: 3px 10px;
   line-height: 13px;
-  color: #000000;
+  color: #000;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.p_alta {
+  background-color:#FF0102;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.p_media {
+  background-color:#FFC600;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 4px;
+  font-size: 75%;
+}
+
+.p_baja {
+  background-color:#00962A;
+  padding: 3px 10px;
+  line-height: 13px;
+  color: #fff;
   font-weight: bold;
   border-radius: 4px;
   font-size: 75%;

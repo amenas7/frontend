@@ -41,7 +41,7 @@ export class TicketNuevoComponent implements OnInit {
       usuario_nombre: [''],
       nombre_area_usuario: [''],
       tipo_incidencia: ['', Validators.required],
-      detalle: [ {value: '', disabled: false}, Validators.required],
+      detalle: ['', Validators.required],
       idp: [],
       idu: [],
       correo: [''],

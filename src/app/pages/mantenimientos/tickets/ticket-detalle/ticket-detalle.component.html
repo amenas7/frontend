@@ -1,0 +1,118 @@
+<div class="row">
+
+<div *ngFor="let item of rspta" class="col-md-6">
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+      <div class="col-md-9">
+        <span class="card-title" style="color: #398BF7;"><span class="lstick"></span> Información del Usuario solicitante </span>
+      </div>
+      <div class="col-md-3">
+        <span
+      >Ticket N°: <span style="font-weight: bold;">{{ item.serie }}</span> </span>
+      </div>
+
+        <div class="col-md-12">
+          <span> Usuario solicitante : <span style="font-weight: bold;"> {{ item.usuario_completo }} </span> </span>
+        </div>
+        <div class="col-md-12">
+          <span> Correo : <span style="font-weight: bold;">
+            {{ item.email }}  </span> </span>
+        </div>
+        <div class="col-md-12">
+          <span> Área : <span style="font-weight: bold;"> {{ item.nombre_area }} </span> </span>
+        </div>
+        <div class="col-md-8">
+          <span> Tipo : <span style="font-weight: bold;">
+            {{ item.nombre_tipo_inci }} </span> </span>
+        </div>
+        <div class="col-md-4">
+          <span> Prioridad : <span style="font-weight: bold;"> {{ item.nombre_prioridad }} </span> </span>
+        </div>
+        <div class="col-md-12">
+          <span> Detalle presentado : <span style="font-weight: bold;"> {{ item.detalle_ticket }} </span> </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title" style="color: #398BF7"><span class="lstick"></span> Atención del ticket </div>
+      <form [formGroup]="ticketForm" (submit)="editarTicket()">
+        <div class="form-group">
+          <label for="estado_ticket"> Estado </label>
+          <select
+                formControlName="estado_ticket"
+                class="form-control custom-select"
+                style="border: 1px solid #242A33; font-weight : bold">
+                    <option value=""> Seleccione un estado </option>
+                    <option *ngFor="let estado of estados"
+                    [value]="estado.IDestado" >
+                      {{ estado.nombre }}
+                    </option>
+            </select>
+        </div>
+        <div class="form-group">
+          <label for="detalle"> Detalle </label>
+          <div class="input-group">
+              <textarea formControlName="detalle"
+              class="form-control" id="detalle" cols="30" rows="10"
+              style="resize: none; height: 150px;border: 1px solid #444;font-weight: bold;"></textarea>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12" style="display: flex;">
+            <div class="col-md-6" style="text-align: center;">
+              <button (click)="Regresar()" type="button"
+              class="btn btn-inverse"><i class="fa fa-rotate-left"></i> Regresar </button>
+            </div>
+            <div class="col-md-6" style="text-align: center;">
+              <button
+              [disabled]="ticketForm.invalid"
+              type="submit" class="btn btn-success waves-effect waves-light"> REGISTRAR
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+<div class="col-md-6">
+  <!-- <div *ngIf="expression" > No hay registros de atención en este ticket aún... </div> -->
+  <div *ngFor="let historial of rpta2" class="card">
+    <div class="card-body">
+      <h4 class="card-title"><span class="lstick"></span> Historial </h4>
+      <div class="profiletimeline">
+          <div class="sl-item">
+              <div class="sl-left"> <img src="../assets/images/users/tecnico-logo.png" alt="user" class="img-circle"> </div>
+              <div class="sl-right">
+                  <div> <span style="font-weight: bold;"> {{ historial.nombre_esp }} - </span> <span> {{ historial.rol_name }} </span>
+                      <p *ngIf="historial.distintivo != 1" class="m-t-10"> {{ historial.detalle_ticket }} </p>
+                  </div>
+                  <div class="like-comm m-t-20" style="display: flex;">
+                    <div class="col-md-8">
+                      <i class="fa fa-calendar text-warning"></i>
+                     {{ historial.fecha_reg | date:'yyyy-MM-dd  HH:mm aa'}}
+                    </div>
+                    <div class="col-md-4">
+                      <span
+                          [ngClass]="{ 'asignada' : historial.estado == '2',
+                          'en_proceso' : historial.estado == '3', 'finalizada' : historial.estado == '4' ,
+                          'resuelta' : historial.estado == '5' }">
+                          {{ historial.estado_nombre }} </span>
+                    </div>
+                  </div>
+              </div>
+          </div>
+          <hr>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

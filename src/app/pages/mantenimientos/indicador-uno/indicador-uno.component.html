@@ -1,0 +1,39 @@
+<div class="col-12">
+
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title"> Ratio de incidencias resueltas </h4>
+          <!-- <div class="col-md-8" style="display: flex;">
+
+          </div>
+          <div class="col-md-4" style="display: flex;">
+              <div class="form-group">
+                <input style="border: 1px solid #222;font-weight: bold;" class="form-control" id="demo-input-search2" type="text" name="filtrarNombre" [(ngModel)]="filtrarNombre" placeholder="Buscar por nombre" autocomplete="off">
+              </div>
+          </div> -->
+
+          <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                  <thead>
+                      <tr>
+                          <th>Fecha reporte</th>
+                          <th>Incidencias resueltas</th>
+                          <th>Incidencias totales</th>
+                          <th class="text-nowrap">Ratio de incidencias resueltas %</th>
+                      </tr>
+                  </thead>
+                  <tbody style="font-weight: bold;">
+                      <tr *ngFor="let lista of indicador | paginate: { itemsPerPage: 10, currentPage: p }">
+                          <td>{{ lista.fecha | date:'yyyy-MM-dd'}} </td>
+                          <td>{{ lista.resuelto }} </td>
+                          <td> {{ lista.total }} </td>
+                          <td> {{ lista.indicador }} % </td>
+                      </tr>
+
+                  </tbody>
+              </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+      </div>
+  </div>
+</div>

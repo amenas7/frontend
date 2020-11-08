@@ -1,3 +1,7 @@
+:host{
+  display: block;
+}
+
 .verde {
   background-color:#06d79c;
   padding: 3px 10px;

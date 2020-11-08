@@ -1,39 +1,145 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="card" >
+      <div class="card-header" style="background-color: #3C8DBC;">
+        <h4 class="text-white"> <i class="fa fa-search"></i> Buscar por...</h4>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="form-group">
+              <label class="control-label" style="font-weight: bold;">Estado ticket</label>
+              <select style="border: 1px solid #222;font-weight: bold;"
+              [(ngModel)]="filterEstadoTicket" class="form-control custom-select" tabindex="1">
+                <option value="">--Seleccione un tipo--</option>
+                <option *ngFor="let estado of estados" value={{estado.nombre}} >{{estado.nombre}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="form-group">
+                <label class="control-label" style="font-weight: bold;"> Nombre de usuario </label>
+                <input style="border: 1px solid #222;font-weight: bold;" class="form-control"
+                type="text" name="filterNombre" [(ngModel)]="filterNombre"
+                placeholder="Buscar por nombre" autocomplete="off">
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label" style="font-weight: bold;">Tipo de Incidencia</label>
+                <select style="border: 1px solid #222;font-weight: bold;" [(ngModel)]="filterTipoInci" class="form-control custom-select" tabindex="1">
+                  <option value="" selected>--Seleccione un tipo--</option>
+                  <option *ngFor="let tipo of tipoinci" value={{tipo.nombre}} >{{tipo.nombre}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label" style="font-weight: bold;">Especialista asignado</label>
+                <select style="border: 1px solid #222;font-weight: bold;"
+                [(ngModel)]="filterEspecialistas" class="form-control custom-select" tabindex="1">
+                  <option value="">--Seleccione un especialista--</option>
+                  <option *ngFor="let usuario of usuarios" value={{usuario.nombre_total}} >{{usuario.nombre_total}}</option>
+                </select>
+              </div>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label" style="font-weight: bold;">Prioridad</label>
+                <select style="border: 1px solid #222;font-weight: bold;"
+                [(ngModel)]="filterPrioridadInci" class="form-control custom-select" tabindex="1">
+                  <option value="">--Seleccione una prioridad--</option>
+                  <option *ngFor="let prioridad of prioridades" value={{prioridad.nombre_prioridad}} >{{prioridad.nombre_prioridad}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label class="control-label" style="font-weight: bold;">Área</label>
+                <select style="border: 1px solid #222;font-weight: bold;"
+                [(ngModel)]="filterNombreArea" class="form-control custom-select" tabindex="1">
+                  <option value="">--Seleccione un area--</option>
+                  <option *ngFor="let area of areas" value={{area.nombre_area}} >{{area.nombre_area}}</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                  <label class="control-label" style="font-weight: bold;"> Fecha </label>
+                  <input style="border: 1px solid #222;font-weight: bold;" class="form-control"
+                  type="text" name="filterNombre" [(ngModel)]="filterFecha"
+                  placeholder="Seleccione una fecha" autocomplete="off">
+                </div>
+              </div>
+
+            <div class="col-md-3 m-t-20" style="text-align: center;">
+              <button class="btn btn-info" style="background-color: #10a35f;"
+              (click)="downloadExcel()">Reporte Excel
+                <i class="fa fa-file"></i> </button>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="col-12">
   <div class="card">
       <div class="card-body">
-          <h4 class="card-title"> Incidencias registrados en la aplicación </h4>
+          <h4 class="card-title"> Listado de tickets registrados en la aplicación </h4>
           <div style="text-align: right;">
             <!-- <button class="btn btn-info" routerLink="/dashboard/incidencia/nuevo">Nueva Incidencia
               <i class="fa fa-plus-circle"></i> </button> -->
           </div>
 
           <div class="table-responsive">
-              <table class="table">
+              <table class="table table-bordered table-hover">
                   <thead>
                       <tr>
-                          <th>Fecha registrada</th>
-                          <th>Serie</th>
-                          <th>Estado</th>
-                          <th>Usuario completo</th>
-                          <th>Área</th>
-                          <th>Tipo de incidencia</th>
-                          <th>Prioridad</th>
-                          <th class="text-nowrap">Acciones</th>
+                          <th style="font-weight: bold;">Fecha registrada</th>
+                          <th style="font-weight: bold;">Serie</th>
+                          <th style="font-weight: bold;">Estado</th>
+                          <th style="font-weight: bold;">Usuario solicitante</th>
+                          <th style="font-weight: bold;">Área</th>
+                          <th style="font-weight: bold;">Tipo de incidencia</th>
+                          <th style="font-weight: bold;">Especialista asignado</th>
+                          <th style="font-weight: bold;">Prioridad</th>
+                          <th style="font-weight: bold;">Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
-                      <tr *ngFor="let ticket of tickets">
-                          <td>{{ ticket.fecha_reg }} </td>
+                      <tr *ngFor="let ticket of tickets | paginate: { itemsPerPage: 10, currentPage: p }
+                      | filterSearch: {usuario_completo: filterNombre} | filterSearch: {nombre_tipo_inci: filterTipoInci}
+                      | filterSearch: {estado_nombre: filterEstadoTicket} | filterSearch: {nombre_esp: filterEspecialistas}
+                      | filterSearch: {nombre_prioridad: filterPrioridadInci} | filterSearch: {nombre_area: filterNombreArea}">
+                          <td>{{ ticket.fecha_reg | date:'yyyy-MM-dd  HH:mm aa' }} </td>
                           <td>{{ ticket.serie }} </td>
-                          <td> <span class="label label-info"> {{ ticket.estado }} </span> </td>
+                          <!-- <td> <span class="label label-info"> {{ ticket.estado }} </span> </td> -->
+                          <td> <span
+                            [ngClass]="{ 'asignada' : ticket.estado == '2',
+                            'en_proceso' : ticket.estado == '3', 'finalizada' : ticket.estado == '4' ,
+                            'resuelta' : ticket.estado == '5' }">
+                            {{ ticket.estado_nombre }} </span> </td>
                           <td> {{ ticket.usuario_completo }} </td>
                           <td> {{ ticket.nombre_area }} </td>
                           <td> {{ ticket.nombre_tipo_inci }} </td>
-                          <!-- <td> <span class="label label-info"> {{ ticket.nombre_prioridad }} </span> </td> -->
+                          <td> {{ ticket.nombre_esp }} </td>
                           <td>
                             <span
-                            [ngClass]="{ 'rojo' : ticket.IDprioridad == '1', 'naranja' : ticket.IDprioridad == '2',
-                            'amarillo' : ticket.IDprioridad == '3' }">
+                            [ngClass]="{ 'p_alta' : ticket.IDprioridad == '1', 'p_media' : ticket.IDprioridad == '2',
+                            'p_baja' : ticket.IDprioridad == '3' }">
                             {{ ticket.nombre_prioridad }} </span>
                           </td>
                           <td>
@@ -44,11 +150,30 @@
                                (click)="eliminarInci(inci)"
                                class="btn btn-danger">
                                <i style="color: white;" class="fa fa-trash"></i> </a> -->
+                               <a *ngIf="role_usuario_storage !='USUARIO' " [routerLink]="['/dashboard/ticketd', ticket.ticketid]"
+                               type="button" class="btn btn-outline-info"><i class="fa fa-cubes"></i>
+                              Atender</a>
+
+                              <a *ngIf="role_usuario_storage =='USUARIO' " [routerLink]="['/dashboard/ticketd', ticket.ticketid]"
+                               type="button" class="btn btn-outline-success"><i class="fa fa-eye"></i>
+                              Revisar</a>
+
+                              <a *ngIf="role_usuario_storage =='ADMINSITRADOR' " style="margin-left: 12px;"
+                               (click)="eliminarTicket(ticket)"
+                               class="btn btn-danger">
+                               <i style="color: white;" class="fa fa-trash"></i> </a>
+
+                               <a (click)="selecionarHistorialPDF(ticket.ticketid);"
+                               style="background-color: white !important; color: #FF0102;
+                               margin-left: 8px; border: 1px solid #FF0102;" class="btn btn-info"> <i class="fa fa-file-pdf-o fa-1x"></i> </a>
+
+
                           </td>
                       </tr>
 
                   </tbody>
               </table>
+              <pagination-controls (pageChange)="p = $event"></pagination-controls>
           </div>
       </div>
   </div>

@@ -33,7 +33,9 @@
         <!-- footer -->
         <!-- ============================================================== -->
         <footer class="footer font-weight-bold">
-            UCV © 2020 - Tesis Alvaro A. Mena Santos
+            UCV © 2020 - Tesis Alvaro A. Mena Santos :
+            <span *ngIf="wsService.socketStatus"  class="text-success"> Online </span>
+            <span *ngIf="!wsService.socketStatus" class="text-danger"> Offline </span>
         </footer>
         <!-- ============================================================== -->
         <!-- End footer -->

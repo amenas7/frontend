@@ -74,8 +74,11 @@ export class IncidenciaNuevoComponent implements OnInit {
     const { usuario } = (this.inciForm.value);
     this.incidenciasService.crearInci( this.inciForm.value )
       .subscribe( resp => {
-        Swal.fire('Registrado ', `${ usuario } creada correctamente`, 'success');
-        this.router.navigateByUrl('/dashboard/incidencias');
+        Swal.fire('Registrado ', `Incidencia creada correctamente`, 'success');
+        this.router.navigateByUrl('/dashboard/incidencia/nuevo');
+        this.inciForm.get('tipo_incidencia').reset();
+        this.inciForm.get('detalle').reset();
+        //this.inciForm.reset();
       });
   }
 

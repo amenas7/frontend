@@ -7,12 +7,12 @@
           </div>
 
           <div class="table-responsive">
-              <table class="table">
+              <table class="table table-bordered table-hover">
                   <thead>
                       <tr>
-                          <th>Nombre</th>
-                          <th>Descripción</th>
-                          <th class="text-nowrap">Acciones</th>
+                          <th style="font-weight: bold;">Nombre</th>
+                          <th style="font-weight: bold;">Descripción</th>
+                          <th style="font-weight: bold;">Acciones</th>
                       </tr>
                   </thead>
                   <tbody>
@@ -21,7 +21,7 @@
                           <td> {{ tipo.descripcion }} </td>
                           <td> <a style="margin-right: 4px;"
                             [routerLink]="['/dashboard/area', tipo.tipoincid]"
-                            class="btn btn-primary"> <i style="color: white;" class="fa fa-edit"></i> </a>
+                            class="btn btn-primary"> <i style="color: white;" class="fa fa-pencil"></i> </a>
                                <a
                                (click)="eliminarTipo(tipo)"
                                class="btn btn-danger">

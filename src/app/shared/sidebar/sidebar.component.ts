@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarService } from '../../services/sidebar.service';
+import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,14 +9,16 @@ import { SidebarService } from '../../services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
 
-  menuItems: any[];
+  //menuItems: any[];
   nombre_usuario_storage: string;
+  rol_storage: string = localStorage.getItem('role');
+  variable: any[] = [];
 
-  constructor( private sidebarService: SidebarService ) {
-    this.nombre_usuario_storage  = localStorage.getItem('usuario');
-
-    this.menuItems = sidebarService.menu;
-    console.log(this.menuItems)
+  constructor( private usuarioService: UsuarioService ) {
+    this.nombre_usuario_storage  = localStorage.getItem('usuario_perma');
+    this.variable = this.usuarioService.ifMenu(this.rol_storage);
+    //this.menuItems = sidebarService.menu;
+    //console.log(this.menuItems)
   }
 
   ngOnInit(): void {
